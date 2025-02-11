@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package mydata.v1;
+
+message RaydiumSwaps {
+  repeated TradeData data = 1;
+}
+
+message TradeData {
+  int64 block_time = 1;
+  string tx_id = 2;
+  string signer = 3;
+  string base_mint = 4;
+  string quote_mint = 5;
+  uint64 base_amount = 6;
+  uint64 quote_amount = 7;
+  uint64 txn_fee = 8;
+  int64 signer_sol_change = 9;
+}

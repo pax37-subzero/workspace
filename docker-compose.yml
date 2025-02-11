@@ -1,0 +1,9 @@
+services:
+  substreams-sink:
+    build: .
+    image: workspace-raydium-sink
+    environment:
+      - DSN=clickhouse://default:Yd~nAGfF1EGeX@s5nk4768on.eu-west-1.aws.clickhouse.cloud:9440/default?secure=true
+      - RUST_LOG=info
+      - SUBSTREAMS_API_TOKEN=eyJhbGciOiJLTVNFUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3NzI1MDU4MTIsImp0aSI6IjFmODhiYmY3LWU5N2ItNGI3NC05ZDJmLTYxN2NmZjMwNGQ3NiIsImlhdCI6MTczNjUwNTgxMiwiaXNzIjoiZGZ1c2UuaW8iLCJzdWIiOiIwY29wb2UwODVlODAxMTEzMzE5NTEiLCJ2IjoxLCJha2kiOiI3YzJhOTMyYmJkZDkzZmU2ZTVkODhhMjc5YmEyM2RlNzBkMDQwNTE0ZDlhMjhmMmQ3OWU0ZjZhOGQwZDNiYmNlIiwidWlkIjoiMGNvcG9lMDg1ZTgwMTExMzMxOTUxIn0.9fpVU75jXqzJ-Kwfp4EnO-OD8JQby7FhB9KRH6BTiyXH1LEW59g1N81CBBsrc54b81Nte1c4j0qKydl7yEuKsA
+    restart: unless-stopped

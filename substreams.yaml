@@ -1,0 +1,59 @@
+specVersion: v0.1.0
+package:
+  name: raydium_filter
+  version: v0.1.0
+
+imports:
+  solana: https://spkg.io/streamingfast/solana-common-v0.3.0.spkg
+  tl_solana_dex_trades: https://spkg.io/v1/packages/tl_solana_dex_trades_1_0_13/v1.0.13
+  sql: https://github.com/streamingfast/substreams-sink-sql/releases/download/protodefs-v1.0.3/substreams-sink-sql-protodefs-v1.0.3.spkg
+
+protobuf:
+  files:
+    - mydata.proto
+  importPaths:
+    - ./proto
+  excludePaths:
+    - sf/substreams/rpc
+    - sf/substreams/v1
+    - sf/substreams/sink
+    - sf/substreams/index
+    - sf/substreams/index/v1
+    - instructions.proto
+    - transactions.proto
+    - google
+
+binaries:
+  default:
+    type: wasm/rust-v1
+    file: ./target/wasm32-unknown-unknown/release/substreams.wasm
+
+modules:
+  - name: map_raydium_swaps
+    kind: map
+    initialBlock: 315298316
+    inputs:
+      - map: tl_solana_dex_trades:map_block  # используем существующий модуль как input
+    output:
+      type: proto:mydata.v1.RaydiumSwaps 
+
+  - name: db_out
+    kind: map
+    inputs:
+      - map: map_raydium_swaps
+    output:
+      type: proto:sf.substreams.sink.database.v1.DatabaseChanges
+
+network: solana-mainnet-beta
+
+sink:
+  module: db_out
+  type: sf.substreams.sink.sql.v1.Service
+  config:
+    schema: "./schema.sql"
+    engine: clickhouse
+    wire_protocol_access: true
+    postgraphile_frontend:
+      enabled: false # Отключаем, так как это специфично для PostgreSQL
+    pgweb_frontend:
+      enabled: false # Отключаем, так как это специфично для PostgreSQL
