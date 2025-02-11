@@ -10,7 +10,7 @@ CREATE TABLE IF NOT EXISTS raydium_swaps (
     txn_fee UInt64,
     signer_sol_change Int64
 ) ENGINE = MergeTree
-ORDER BY (id, block_date, block_time);
+ORDER BY (id, block_time);
 
 -- Required for substreams-sink-sql
 CREATE TABLE IF NOT EXISTS cursors (
