@@ -23,9 +23,9 @@ pub struct TradeData {
     pub base_amount: u64,
     #[prost(uint64, tag="7")]
     pub quote_amount: u64,
-    #[prost(uint64, tag="8")]
-    pub txn_fee: u64,
-    #[prost(int64, tag="9")]
-    pub signer_sol_change: i64,
+    #[prost(int32, tag="8")]
+    pub is_buy: i32,
+    #[prost(string, tag="9")]
+    pub sol_price: ::prost::alloc::string::String,
 }
 // @@protoc_insertion_point(module)

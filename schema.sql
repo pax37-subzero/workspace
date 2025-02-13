@@ -1,16 +1,16 @@
 -- schema.clickhouse.sql
 CREATE TABLE IF NOT EXISTS raydium_swaps (
-    id String PRIMARY KEY, -- key: tx_id 
+    tx_id String PRIMARY KEY,
     block_time DateTime,
     signer String,
     base_mint String,
     quote_mint String,
     base_amount UInt64,
     quote_amount UInt64,
-    txn_fee UInt64,
-    signer_sol_change Int64
-) ENGINE = MergeTree
-ORDER BY (id, block_time);
+    is_buy UInt8,
+    sol_price String
+) ENGINE = MergeTree()
+ORDER BY (block_time, tx_id);
 
 -- Required for substreams-sink-sql
 CREATE TABLE IF NOT EXISTS cursors (

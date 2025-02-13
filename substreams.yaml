@@ -5,7 +5,7 @@ package:
 
 imports:
   solana: https://spkg.io/streamingfast/solana-common-v0.3.0.spkg
-  tl_solana_dex_trades: https://spkg.io/v1/packages/tl_solana_dex_trades_1_0_13/v1.0.13
+  tl_solana_dex_trades: https://spkg.io/v1/packages/tl_solana_dex_trades_1_0_22/v1.0.22
   sql: https://github.com/streamingfast/substreams-sink-sql/releases/download/protodefs-v1.0.3/substreams-sink-sql-protodefs-v1.0.3.spkg
 
 protobuf:
@@ -40,7 +40,7 @@ modules:
   - name: db_out
     kind: map
     inputs:
-      - map: map_raydium_swaps
+      - map: tl_solana_dex_trades:map_block
     output:
       type: proto:sf.substreams.sink.database.v1.DatabaseChanges
 
