@@ -10,7 +10,7 @@ CREATE TABLE IF NOT EXISTS raydium_swaps (
     is_buy UInt8,
     sol_price String
 ) ENGINE = MergeTree()
-ORDER BY (block_time, tx_id);
+ORDER BY (tx_id, block_time);
 
 -- Required for substreams-sink-sql
 CREATE TABLE IF NOT EXISTS cursors (
